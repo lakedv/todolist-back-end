@@ -2,8 +2,9 @@
   "name": "todobackend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
+    "nodemon": "nodemon server.js",
     "test": "test"
   },
   "repository": {
@@ -11,7 +12,7 @@
     "url": "git+https://github.com/lakedv/todolist-back-end.git"
   },
   "author": "Lakedv",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/lakedv/todolist-back-end/issues"
   },

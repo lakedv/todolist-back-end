@@ -1,0 +1,30 @@
+{
+  "name": "todobackend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "nodemon": "nodemon server.js",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lakedv/todolist-back-end.git"
+  },
+  "author": "Lakedv",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lakedv/todolist-back-end/issues"
+  },
+  "homepage": "https://github.com/lakedv/todolist-back-end#readme",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}

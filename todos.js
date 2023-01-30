@@ -25,7 +25,7 @@ router.post('/', (req, res) => {
   let description = req.body.description;
 
   let todo = {
-    id,
+    id: 99,
     description,
     done: false
   }

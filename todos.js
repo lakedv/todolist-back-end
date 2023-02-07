@@ -1,38 +1,46 @@
 const express = require('express');
-
+const db = require('./firestore.js')
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.send('lostodos');
+router.get('/', async (req, res) => {
+  let snapshot = await db.collection('todolist').get()
+  let todos = [];
+
+  snapshot.forEach(doc => {
+    let data = doc.data();
+    todos.push({
+      id: doc.id,
+      desc: data.desc,
+      done: data.done
+    })
+  })
+  res.send(todos);
 })
 
-/*router.get('/:id', function (req, res) {
-  let found = data.find(function (item) {
-      return item.id === parseInt(req.params.id);
-  })
-})*/
-router.get('/:id', function (req, res) {
-  let id = req.params.id
-  res.send({
-    id,
-    description: 'desc',
-    done: false
-  });
+router.get('/:id', async function (req, res) {
+  let id = req.params.id;
+  let doc = await db.collection('todolist').doc(id).get()
+  let todos = {};
 
+  let data = doc.data();
+  todos.id = doc.id;
+  todos.desc = data.desc;
+  todos.done = data.done;
+
+  res.send(todos);
 })
 
 router.post('/', (req, res) => {
   let description = req.body.description;
 
-  let todo = {
+  let todos = {
     id: 99,
     description,
     done: false
   }
-
   //insertamos un objeto con descripción y sin "terminar"
   /*
-  db.todos.insert(todo, (err, result) => { // <-- funcion de callback 
+  db.todolist.insert(todos, (err, result) => { // <-- funcion de callback 
     // generalmente, en node, los clientes de db te devuelven un callback
     // con un error (que si viene nulo quiere decirque no hubo error)
     // y el resultado de la consulta/operación
@@ -42,7 +50,7 @@ router.post('/', (req, res) => {
         error: err
       })
     } else {
-      todo.id = result.newId // Supongamos que así llega el nuevo id desdea db
+      todos.id = result.newId // Supongamos que así llega el nuevo id desdea db
     }
   })
   */
@@ -92,7 +100,7 @@ router.delete('/:id', function (req, res) {
   // success status response code 204 indicates
   // that the request has succeeded
   res.json({
-      message: 'Deleted'
+    message: 'Deleted'
   });
 });
 

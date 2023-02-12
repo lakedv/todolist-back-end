@@ -45,15 +45,22 @@ router.post('/', async (req, res) => {
 router.put('/:id', async function (req, res) {
   let id = req.params.id
   let todos = {};
-  let doc = await db.collection('todolist').doc(id)
+  let docRef = await db.collection('todolist').doc(id)
+  let doc = await docRef.get();
   todos.id = doc.id;
-  
-  doc.set({
+
+  await docRef.set({
     desc: req.body.desc,
     done: req.body.done
   })
-    res.send(todos)
-  }
+  await docRef.get()
+  let data = doc.data();
+  todos.desc = data.desc;
+  todos.done = data.done;
+
+  return res.json(
+    {todos})
+}
 );
 
 router.delete('/:id', async function (req, res) {
